@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERISAI - Pengelolaan Risiko Berbasis Aplikasi</title>
+<meta name="description" content="PERISAI: aplikasi pengelolaan risiko Perangkat Daerah sesuai Perbup Buleleng Nomor 66 Tahun 2023. Inspektorat Daerah Kabupaten Buleleng.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7L16 2z' fill='%23132a45'/%3E%3Cpath d='M16 6 8 9.5V15c0 5.2 3.4 9.4 8 10.6 4.6-1.2 8-5.4 8-10.6V9.5L16 6z' fill='%23c89b3c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#view">Lewati ke konten</a>
+<div id="app">
+  <aside class="sidebar" aria-label="Navigasi utama">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32"><path d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7L16 2z" fill="#132a45"/><path d="M16 6 8 9.5V15c0 5.2 3.4 9.4 8 10.6 4.6-1.2 8-5.4 8-10.6V9.5L16 6z" fill="currentColor"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="eyebrow">Inspektorat Daerah Kab. Buleleng</div>
+        <h1>PERISAI</h1>
+        <p>Pengelolaan Risiko Berbasis Aplikasi</p>
+      </div>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="sidenav" aria-label="Buka menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+
+    <div class="side-collapse" id="sidenav">
+      <div class="side-block year-block">
+        <label for="year-select">Tahun penilaian aktif</label>
+        <select id="year-select"></select>
+        <div class="opd-name" id="side-opd"></div>
+      </div>
+
+      <nav class="tabs" id="navtabs"></nav>
+
+      <div class="side-block">
+        <h4>Ringkasan <span id="side-year"></span></h4>
+        <div class="side-stat"><span>Risiko teridentifikasi</span><b id="stat-total">-</b></div>
+        <div class="side-stat"><span>Sudah dinilai</span><b id="stat-dinilai">-</b></div>
+        <div class="side-stat"><span>Risiko prioritas</span><b id="stat-prioritas">-</b></div>
+        <div class="side-stat"><span>RTP disusun</span><b id="stat-rtp">-</b></div>
+      </div>
+
+      <div class="side-block">
+        <h4>Data</h4>
+        <div class="side-actions">
+          <button type="button" class="side-btn" id="btn-backup">Unduh cadangan (.json)</button>
+          <label class="side-btn" for="file-restore">Pulihkan dari cadangan</label>
+          <input type="file" id="file-restore" accept=".json,application/json" hidden>
+          <button type="button" class="side-btn" id="btn-reset">Atur ulang data</button>
+        </div>
+        <p class="storage-warn" id="storage-warn" hidden>Penyimpanan peramban tidak tersedia. Perubahan hilang saat halaman ditutup; unduh cadangan secara berkala.</p>
+      </div>
+      <p class="sidebar-foot">Skala dan matriks risiko mengikuti SE Sekda No. 100.3.3.2/232.1/SEKT-ITDA/II/2025. Formulir mengikuti Lampiran II Perbup Buleleng No. 66 Tahun 2023.</p>
+    </div>
+  </aside>
+
+  <main id="view" tabindex="-1"></main>
+</div>
+
+<div id="print-root" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"><span class="dot"></span><span id="toast-msg"></span></div>
+
+<datalist id="dl-triwulan"><option value="Triwulan I"><option value="Triwulan II"><option value="Triwulan III"><option value="Triwulan IV"><option value="Semester I"><option value="Semester II"></datalist>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="js/config.js" defer></script>
+<script src="js/seed.js" defer></script>
+<script src="js/store.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/views/dashboard.js" defer></script>
+<script src="js/views/konteks.js" defer></script>
+<script src="js/views/identifikasi.js" defer></script>
+<script src="js/views/analisis.js" defer></script>
+<script src="js/views/monitoring.js" defer></script>
+<script src="js/views/apip.js" defer></script>
+<script src="js/views/pelaporan.js" defer></script>
+<script src="js/views/kamus.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
